@@ -1,11 +1,13 @@
 const express = require('express');
 const Contact = require('./model');
+const { get } = require('mongoose');
 const route = express.Router();
 
 // Route de test
 route.get('/leo', (req, res) => {
 Contact.find().then(users=>res.json(users)).catch(err=>res.json(err))
 });
+
 
 // Route pour sauvegarder un message
 route.post('/msgs', async (req, res) => {
@@ -18,7 +20,7 @@ route.post('/msgs', async (req, res) => {
             return res.status(400).json({ error: '❌ All fields are required' });
         }
 
-        const newMsg = new Contact({ name, email, message });
+        const newMsg = new Contact({ name , email, message });
         const savedMsg = await newMsg.save();
 
         console.log('✅ Message sauvegardé :', savedMsg);
